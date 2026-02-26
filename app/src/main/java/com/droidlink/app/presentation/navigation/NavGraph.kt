@@ -9,6 +9,7 @@ import com.droidlink.app.presentation.screens.apps.AppsScreen
 import com.droidlink.app.presentation.screens.connection.ConnectionScreen
 import com.droidlink.app.presentation.screens.files.FilesScreen
 import com.droidlink.app.presentation.screens.screen.ScreenMirrorScreen
+import com.droidlink.app.presentation.screens.screen.ScreenMirrorViewModel
 import com.droidlink.app.presentation.screens.shell.ShellScreen
 
 @Composable
@@ -18,6 +19,7 @@ fun DroidLinkNavGraph(
     appsViewModel: com.droidlink.app.presentation.screens.apps.AppsViewModel,
     filesViewModel: com.droidlink.app.presentation.screens.files.FilesViewModel,
     shellViewModel: com.droidlink.app.presentation.screens.shell.ShellViewModel,
+    screenMirrorViewModel: ScreenMirrorViewModel,
     modifier: Modifier = Modifier
 ) {
     NavHost(
@@ -38,7 +40,7 @@ fun DroidLinkNavGraph(
             ShellScreen(viewModel = shellViewModel)
         }
         composable(Screen.ScreenMirror.route) {
-            ScreenMirrorScreen()
+            ScreenMirrorScreen(viewModel = screenMirrorViewModel)
         }
     }
 }
