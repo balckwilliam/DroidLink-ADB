@@ -249,7 +249,7 @@ class AdbConnection(
     }
 
     val isConnected: Boolean
-        get() = socket?.isConnected == true && !socket!!.isClosed
+        get() = socket?.let { it.isConnected && !it.isClosed } ?: false
 
     private fun readFully(input: InputStream, buffer: ByteArray) {
         var offset = 0
