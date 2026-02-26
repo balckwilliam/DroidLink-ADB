@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -29,6 +30,7 @@ import com.droidlink.app.presentation.navigation.Screen
 import com.droidlink.app.presentation.screens.apps.AppsViewModel
 import com.droidlink.app.presentation.screens.connection.ConnectionViewModel
 import com.droidlink.app.presentation.screens.files.FilesViewModel
+import com.droidlink.app.presentation.screens.screen.ScreenMirrorViewModel
 import com.droidlink.app.presentation.screens.shell.ShellViewModel
 import com.droidlink.app.presentation.theme.DroidLinkTheme
 
@@ -47,6 +49,10 @@ class MainActivity : ComponentActivity() {
         val appsViewModel = AppsViewModel(adbRepository = app.adbRepository)
         val filesViewModel = FilesViewModel(adbRepository = app.adbRepository)
         val shellViewModel = ShellViewModel(adbRepository = app.adbRepository)
+        val screenMirrorViewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+        )[ScreenMirrorViewModel::class.java]
 
         setContent {
             DroidLinkTheme {
@@ -54,7 +60,8 @@ class MainActivity : ComponentActivity() {
                     connectionViewModel = connectionViewModel,
                     appsViewModel = appsViewModel,
                     filesViewModel = filesViewModel,
-                    shellViewModel = shellViewModel
+                    shellViewModel = shellViewModel,
+                    screenMirrorViewModel = screenMirrorViewModel
                 )
             }
         }
@@ -81,7 +88,8 @@ fun DroidLinkApp(
     connectionViewModel: ConnectionViewModel,
     appsViewModel: AppsViewModel,
     filesViewModel: FilesViewModel,
-    shellViewModel: ShellViewModel
+    shellViewModel: ShellViewModel,
+    screenMirrorViewModel: ScreenMirrorViewModel
 ) {
     Scaffold(
         bottomBar = {
@@ -94,6 +102,7 @@ fun DroidLinkApp(
             appsViewModel = appsViewModel,
             filesViewModel = filesViewModel,
             shellViewModel = shellViewModel,
+            screenMirrorViewModel = screenMirrorViewModel,
             modifier = Modifier.padding(innerPadding)
         )
     }
